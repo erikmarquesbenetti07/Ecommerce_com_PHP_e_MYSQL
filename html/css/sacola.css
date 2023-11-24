@@ -1,0 +1,115 @@
+.box {
+    border: 1px solid #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.box:hover {
+    background-color: aliceblue;
+    transition: 0.5s;
+}
+
+.selected_box {
+    background-color: aliceblue;
+}
+
+.box img {
+    width: 30px;
+    height: 25px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input {
+    outline: none;
+    background-color: #5d609e;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.payment_form {
+    margin: 20px 0px;
+}
+
+.details {
+    margin-right:20px;
+    box-shadow: 4px 0px 15px -3px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.splited_inputs {
+    display: flex;
+}
+
+.splited_inputs input{
+    width: 50% !important;
+}
+.produtosTabela {
+    height: 600px;
+    overflow-y: scroll;
+}
+.completed_button {
+    border: none;
+    outline: none;
+    background-color: #535bff;
+    color: white;
+    width: 100%;
+    padding: 20px;
+}
+
+.completed_button:hover {
+    background-color: #767dff;
+    transition: 0.5s;
+}
+.product {
+    position: relative;
+}
+.product .details{
+    display: inline-flex;
+    align-items: center;
+}
+.product .details .img_prod{
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 20px;
+}
+.product .details img {
+    width: 60px;
+    height: 60px;
+}
+
+.product .details .name_prod {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-right: 200px;
+}
+
+.add_products_controls {
+    position: absolute;
+    display: flex;
+    right: 10px;
+    align-items: center;
+}
+
+.add_products_controls button {
+    margin: 0px 30px;
+    border: none;
+    padding: 1px 10px;
+}
+
+.add_products_controls button:hover {
+    transition: 0.5s;
+    box-shadow: 4px 0px 15px -3px rgba(0, 0, 0, 0.1);
+}
