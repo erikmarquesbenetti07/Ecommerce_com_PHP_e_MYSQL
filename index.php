@@ -1,23 +1,23 @@
 <?php
-session_start();
+  // A linha abaixo inclui o conteudo do 
+  // programa config.php que está na pasta config
+  include("config/config.php");
 
-// Caminho correto para incluir config.php
-include("./config/config.php");
+  // o file_get_contentes lê o conteudo do arquivo
+  $login = file_get_contents("html/login.html");
 
-// Verifica se o usuário está logado
-if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
-    // Redireciona para a página de menu
-    header("Location: menu.php");
-    exit;
-}
+  // replace troca uma string (meutoken), pelo 
+  // conteudo existente na variável $meutoken.
+  // Isso será feito olhando o conteudo de $login.
+  $login = str_replace("meutoken", 
+                        $meutoken,
+                        $login);
+  if(isset($_REQUEST["mensagem"])){
+    $login = str_replace("<!--mensagem-->",
+                     $_REQUEST["mensagem"],
+                         $login); 
 
-// O usuário não está logado, continue exibindo a página de login
-$login = file_get_contents("html/login.html");
-
-if (isset($_REQUEST["mensagem"])) {
-    // Substitui <!--mensagem--> pela mensagem fornecida
-    $login = str_replace("<!--mensagem-->", $_REQUEST["mensagem"], $login); 
-}
-
-echo $login;
+  }
+  
+  echo $login;
 ?>

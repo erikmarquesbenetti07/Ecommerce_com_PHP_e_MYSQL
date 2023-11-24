@@ -1,44 +1,47 @@
 <?php
-include("../config/config.php");
+// tem que ser o primeiro comando do
+// programa - prepara o ambiente sessão
+  session_start();
 
-// Verifica se o formulário foi enviado
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    // Recupera os dados do formulário
-    $cpf = $_POST["cpf"];
-    $senha = $_POST["senha"];
-    
-    // Conexão com o banco de dados (substitua com suas próprias configurações)
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    // Verifica a conexão
-    if ($conn->connect_error) {
-        die("Erro na conexão com o banco de dados: " . $conn->connect_error);
-    }
-    
-    // Verifica se o CPF já está cadastrado
-    $checkCpfQuery = "SELECT * FROM usuarios WHERE cpfusuario = '$cpf'";
-    $checkCpfResult = $conn->query($checkCpfQuery);
-    
-    if ($checkCpfResult->num_rows > 0) {
-        echo "CPF já cadastrado. Por favor, escolha outro.";
-        exit;
-    }
-    
-    // Insere o novo usuário no banco de dados
-    $insertQuery = "INSERT INTO usuarios (cpfusuario, senhausuario) VALUES ('$cpf', '$senha')";
-    
-    if ($conn->query($insertQuery) === TRUE) {
-        echo "Usuário cadastrado com sucesso!";
-    } else {
-        echo "Erro ao cadastrar usuário: " . $conn->error;
-    }
-    
-    // Fecha a conexão
-    $conn->close();
-} else {
-    // Redireciona para a página de cadastro se o formulário não foi enviado corretamente
-    header("Location: cadUsuario.html");
-    exit;
-}
+  include("../config/config.php");
+
+  $cpf		= $_REQUEST['cpf'];
+  $senha	= $_REQUEST['senha'];
+
+  // abaixo junta senha com meu conteúdo forte
+  $senha    = $senha . $parteForte;
+  $senha    = md5($senha);
+  // echo $senha;
+
+ $tudoOk = validar($cpf, $senha, $arquivo);
+ if( $tudoOk == true)
+ {
+    $_SESSION['logado']  = true;
+    $_SESSION['cpf']     = $cpf;
+    header("Location: menu.php");
+ }
+ else
+ {
+ 	  header("Location: ../index.php?mensagem=Erro, tente novamente!");
+ }
+
+ function validar($cpf, $senha, $arquivo)
+ {
+   $resultado = false;
+   $db = array();
+   if ( file_exists($arquivo)){
+     $dadosDb =file_get_contents($arquivo);
+     $db = json_decode($dadosDb, true);
+     foreach ($db as $key => $pessoa) {
+        if ( ($pessoa["cpf"]   == $cpf) &&
+         ($pessoa["senha"] == $senha)){
+          $resultado = true;
+        }
+     }
+   }   
+
+   return $resultado;  
+ }
+
+
 ?>

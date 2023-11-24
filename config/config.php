@@ -1,7 +1,5 @@
 <?php
-// Configurações do banco de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "integridade";
+  $meutoken     = "Abc123!";
+  $parteForte   = "&%$!2KÇ";
+  $arquivo      = "../db/db.json";
 ?>
