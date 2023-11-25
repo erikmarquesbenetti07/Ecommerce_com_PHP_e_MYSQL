@@ -1,92 +1,95 @@
+var total_count = 0;
 window.addEventListener("load", function () {
-  initiateProductsList();
-  initiatePaymentMethods();
+  getProductsCard().then((card_itens) => {
+    initiateProductsList(card_itens);
+    initiatePaymentMethods();
 
-  $(".btn-add").click(function () {
-    var captura_id = $(this).attr("id");
-    let array = converted_array(localStorage.getItem("items"));
+    $(".btn-add").click(function () {
+      var captura_id = $(this).attr("id");
+      let array = converted_array(localStorage.getItem("items"));
 
-    array.push(captura_id);
-    localStorage.setItem("items", JSON.stringify(array));
-    $.toast({
-      heading: "Item Adicionado",
-      text: `Seu item foi ${
-        products[captura_id - 1].nome.split(", ")[0]
-      } adicionado no carrinho`,
-      position: "top-right",
-      stack: false,
-      bgColor: "#9400D3",
-      hideAfter: 1000,
-      textColor: "white",
-    });
-
-    setTimeout(() => {
-      window.location.href =
-        "http://localhost/Projeto%20Banco%20de%20Dados/html/sacola.html";
-    }, 1500);
-  });
-
-  $(".btn-remove").click(function () {
-    let productId = $(this).attr("id");
-    let itemsId = converted_array(localStorage.getItem("items"));
-    console.log(productId);
-    let productToBeRemoved = itemsId.findIndex((item) => item == productId);
-
-    if (productToBeRemoved !== -1) {
-      itemsId.splice(productToBeRemoved, 1);
-      console.log(products[productToBeRemoved]);
+      array.push(captura_id);
+      localStorage.setItem("items", JSON.stringify(array));
       $.toast({
-        heading: `Item removido - ${
-          products[productToBeRemoved].nome.split(", ")[0]
-        }`,
-        text: "Seu item foi removido no carrinho",
+        heading: "Item Adicionado",
+        text: `Seu item foi ${
+          products[captura_id - 1].nome.split(", ")[0]
+        } adicionado no carrinho`,
         position: "top-right",
         stack: false,
-        icon: "warning",
-        bgColor: "#f76420",
-        textColor: "white",
+        bgColor: "#9400D3",
         hideAfter: 1000,
+        textColor: "white",
       });
-    }
 
-    localStorage.setItem("items", JSON.stringify(itemsId));
-    setTimeout(() => {
-      window.location.href =
-        "http://localhost/Projeto%20Banco%20de%20Dados/html/sacola.html";
-    }, 1500);
-  });
+      setTimeout(() => {
+        window.location.href =
+          "http://localhost/Projeto-Banco-de-Dados/html/sacola.html";
+      }, 1500);
+    });
 
-  $("#completeCard").click(function () {
-    console.log("ola");
-    $("#main_card_div").append(`
-    <div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    $(".btn-remove").click(function () {
+      let productId = $(this).attr("id");
+      let itemsId = converted_array(localStorage.getItem("items"));
+      console.log(productId);
+      let productToBeRemoved = itemsId.findIndex((item) => item == productId);
+
+      if (productToBeRemoved !== -1) {
+        itemsId.splice(productToBeRemoved, 1);
+        console.log(products[productToBeRemoved]);
+        $.toast({
+          heading: `Item removido - ${
+            products[productToBeRemoved].nome.split(", ")[0]
+          }`,
+          text: "Seu item foi removido no carrinho",
+          position: "top-right",
+          stack: false,
+          icon: "warning",
+          bgColor: "#f76420",
+          textColor: "white",
+          hideAfter: 1000,
+        });
+      }
+
+      localStorage.setItem("items", JSON.stringify(itemsId));
+      setTimeout(() => {
+        window.location.href =
+          "http://localhost/Projeto-Banco-de-Dados/html/sacola.html";
+      }, 1500);
+    });
+
+    $("#completeCard").click(function () {
+      console.log("ola");
+      $("#main_card_div").append(`
+      <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-    `);
+      `);
+    });
   });
 });
 
-function initiateProductsList() {
+function initiateProductsList(card_list) {
   var class_main_div = $(".produtosTabela");
-  let items_card = converted_array(localStorage.getItem("items"));
-  let uniques = Array.from(new Set(items_card));
-  let total_count = 0;
+  let items_card = card_list;
+  let items_card_local = converted_array(localStorage.getItem("items"));
+  let uniques = Array.from(new Set(items_card_local.map(String)));
 
   class_main_div.empty();
 
@@ -96,18 +99,20 @@ function initiateProductsList() {
     Não ha nada no carrinho :(
   </h5>`);
 
-  uniques.map((id) => {
-    product = products[Number(id) - 1];
-    const count = array.filter((item) => Number(item) == id).length;
-    current_price = count * product.preco;
+  items_card.map((product) => {
+    const count = items_card_local.filter(
+      (item) => Number(item) === product.idProdutos
+    ).length;
+    console.log(`Product ID: ${product.idProdutos}, Count: ${count}`);
+    current_price = count * product.precoproduto;
     total_count += current_price;
     class_main_div.append(`
     <div class="product">
     <div class="details">
-      <div class="img_prod"><img src="${product.imagem}" /></div>
+      <div class="img_prod"><img src="${product.url_image}" /></div>
       <div class="name_prod">
         <p>
-        ${product.nome} <br />
+        ${product.NomeProduto} <br />
           <strong
             style="
               color: #ccc;
@@ -119,9 +124,9 @@ function initiateProductsList() {
         </p>
       </div>
       <div class="add_products_controls">
-        <button class="btn-add" id="${id}"> + </button>
+        <button class="btn-add" id="${product.idProdutos}"> + </button>
         <strong> ${count} </strong>
-        <button class="btn-remove" id="${id}"> - </button>
+        <button class="btn-remove" id="${product.idProdutos}"> - </button>
       </div>
     </div>
   </div>
@@ -202,23 +207,52 @@ function resetMethods() {
   }
 }
 
+async function getProductsCard() {
+  var itens = JSON.parse(localStorage.getItem("items")).map((str) =>
+    parseInt(str, 10)
+  );
 
-async function getProducts() {
   try {
-    const response = await fetch(url, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify([{"method":"get_product", "id": 10}]),
-    });
+    const response = await fetch(
+      "http://localhost/Projeto-Banco-de-Dados/html/ajax/produto.php",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          method: "get_product",
+          ids: itens,
+        }),
+      }
+    );
 
-     const result = await response.json();
-      console.log("Success:", result);
+    const result = await response.json();
 
-      return result;
+    return result;
   } catch (error) {
-      console.log(error.message);
-      throw error;
+    throw error;
   }
+}
+
+function aguardarRedirecionamento() {
+  document.querySelector(".btn-transition").classList.add("fade-out");
+
+  let default_params = {
+    method: "add_order",
+    ids: JSON.parse(localStorage.getItem("items")),
+    total: total_count,
+  };
+
+  $.ajax({
+    url: "http://localhost/Projeto-Banco-de-Dados/html/ajax/pedido.php",
+    contentType: "application/json",
+    method: "post",
+    data: JSON.stringify(default_params),
+  });
+
+  setTimeout(function () {
+    window.location.href = "../html/acompanhaACompra.html";
+    localStorage.removeItem("items");
+  }, 100);
 }

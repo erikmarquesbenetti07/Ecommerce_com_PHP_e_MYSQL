@@ -57,7 +57,8 @@ input {
 }
 .produtosTabela {
     height: 600px;
-    overflow-y: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 .completed_button {
     border: none;

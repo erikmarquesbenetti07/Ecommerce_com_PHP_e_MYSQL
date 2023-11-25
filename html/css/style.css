@@ -55,13 +55,17 @@ body{
 	visibility: collapse;
 }
 .nav{
+	position: fixed;
 	display: flex;
+	align-content: center;
+	align-items: center;
 	color: #2a225a;
-	height: 2rem;
-	width: auto;
+	width: 100%;
 	margin: 0;
+	background: #FFF !important;
 	border-bottom: 5px solid #2a225a;
 	background: none;
+	padding: 20px;
 }
 .nav section{
 	display: flex;
@@ -92,8 +96,7 @@ body{
 	font-weight: bold;
 	padding: 5px;
 }
-.nav ul li a:hover{
-	background: #2a225a;;
+.nav ul li:hover{
 	color: #FFF;
 	transform: scale(1.1);
 	transition: .5s;
@@ -116,6 +119,39 @@ body{
 	font-weight: bold;
 	padding: 5px;	
 }
+
+.cart_icon {
+	color: #000;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	visibility: unset !important;
+}
+
+.main_items_count {
+	position: relative;
+}
+
+.amount_items {
+	position: absolute;
+	color: white;
+	background: rgb(244, 83, 83);
+	width: 20px;
+	text-align: center;
+	height: 20px;
+	font-size: 15px;
+	z-index: 100;
+	border-radius: 10px;
+}
+.cart_quantity {
+	position: absolute;
+	right: 20px;
+}
+.cart_container {
+	right: 50px;
+	position: relative;
+}
+
 /********** Titulo Index ***********/
 .TituloIndex{
 	float: left;
@@ -468,14 +504,21 @@ li i {
 }
 .prod img{
     height: 200px;
-    width: 18rem;
-    margin: 1rem;
+    width: 200px;
 }
 .PROD-un{
     height: 10rem;
     width: 18rem;
     margin: .1rem;
     display: inline-table;
+	border: 1px solid #1111115d;
+	padding: 20px;;
+}
+
+.logo_nav_bar {
+	visibility: unset !important;
+	width: 40px;
+	height: 40px;
 }
 .PROD-nome{
     margin: 2px;

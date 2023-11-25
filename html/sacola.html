@@ -23,16 +23,18 @@
 
 <body>
   <div class="container-fluid" id="main_card_div">
-    <h1 class="title_card" style="font-size: 23px; margin: 50px">
-      Carrinho de Compras
-    </h1>
-    <h5 class="title_card" style="font-size: 15px; margin: 50px;font-weight: 300;color: #ccc;">
-      Seus itens do carrinho sera armazenados aqui
-    </h5>
-
-    <button type="button" class="btn btn-dark btn-transition" onclick="redirecionarParaCompras()"
-      style="background: #5458b3;color: white;">Volte para as
-      compras</button>
+    <div class="handlers_and_infos" style="font-size: 23px; margin: 50px">
+      <h1 class="title_card" >
+        Carrinho de Compras
+      </h1>
+      <h5 class="title_card">
+        Seus itens do carrinho sera armazenados aqui
+      </h5>
+  
+      <button type="button" class="btn btn-dark btn-transition" onclick="redirecionarParaCompras()"
+        style="background: #5458b3;color: white;">Volte para as
+        compras</button>
+    </div>
 
     <script>
       function redirecionarParaCompras() {
@@ -44,8 +46,8 @@
           // Aguarde mais 0.5 segundos antes de redirecionar
           setTimeout(function () {
             window.location.href = '../html/produtos.html';
-          }, 500);
-        }, 500);
+          });
+        });
       }
     </script>
 
@@ -94,28 +96,10 @@
                 }
               }
             </style>
-            <center>
-              <button type="button" class="btn btn-dark btn-transition" onclick="aguardarRedirecionamento()">
+              <button type="button" class="btn btn-dark btn-transition" style="padding: 20px; width: 100%;" onclick="aguardarRedirecionamento()">
                 Finalizar Compra
               </button>
-            </center>
             <script>
-              function aguardarRedirecionamento() {
-                document.querySelector('.btn-transition').classList.add('fade-out');
-
-                let default_params = {"data": JSON.parse(localStorage.getItem("items"))}
-
-                setTimeout(function () {
-                  $.ajax({
-                    url:"http://localhost/Projeto%20Banco%20de%20Dados/html/ajax/produto.php",
-                    contentType: "application/json",
-                    method: 'post',
-                    data: JSON.stringify(default_params)
-                  })
-                  //window.location.href = '../html/acompanhaACompra.html';
-                  //localStorage.removeItem('items')
-                }, 100);
-              }
             </script>
           </div>
         </div>
