@@ -101,7 +101,7 @@ function initiateProductsList(card_list) {
 
   items_card.map((product) => {
     const count = items_card_local.filter(
-      (item) => Number(item) === product.idProdutos
+      (item) => Number(item) === Number(product.idProdutos)
     ).length;
     console.log(`Product ID: ${product.idProdutos}, Count: ${count}`);
     current_price = count * product.precoproduto;
