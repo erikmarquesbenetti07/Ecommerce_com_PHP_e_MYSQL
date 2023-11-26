@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,13 +27,13 @@
 <body>
   <div class="container-fluid" id="main_card_div">
     <div class="handlers_and_infos" style="font-size: 23px; margin: 50px">
-      <h1 class="title_card" >
+      <h1 class="title_card">
         Carrinho de Compras
       </h1>
       <h5 class="title_card">
         Seus itens do carrinho sera armazenados aqui
       </h5>
-  
+
       <button type="button" class="btn btn-dark btn-transition" onclick="redirecionarParaCompras()"
         style="background: #5458b3;color: white;">Volte para as
         compras</button>
@@ -45,7 +48,7 @@
 
           // Aguarde mais 0.5 segundos antes de redirecionar
           setTimeout(function () {
-            window.location.href = '../html/produtos.html';
+            window.location.href = '../html/produtos.php';
           });
         });
       }
@@ -96,9 +99,18 @@
                 }
               }
             </style>
-              <button type="button" class="btn btn-dark btn-transition" style="padding: 20px; width: 100%;" onclick="aguardarRedirecionamento()">
+            <?php
+            if (isset($_SESSION['is_admin'])) {
+              echo '<button type="button" class="btn btn-dark btn-transition" style="padding: 20px; width: 100%;" onclick="aguardarRedirecionamento()">
                 Finalizar Compra
-              </button>
+              </button>';
+            } else {
+              echo '<button type="button" class="btn btn-dark btn-transition" style="padding: 20px; width: 100%;" onclick="loginAlert()">
+                Finalizar Compra
+              </button>';
+            }
+            ?>
+
             <script>
             </script>
           </div>

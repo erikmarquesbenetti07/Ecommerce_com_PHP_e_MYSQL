@@ -19,7 +19,7 @@ if ($tudoOk == true) {
   $_SESSION['cpf'] = $cpf;
   header("Location: menu.php");
 } else {
-  header("Location: ../index.php?mensagem=Erro, tente novamente!");
+  header("Location: http://localhost/Projeto-Banco-de-Dados/html/login_page.php");
 }
 
 function validar($cpf, $senha, $arquivo)
@@ -40,7 +40,11 @@ function validar($cpf, $senha, $arquivo)
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
   if ($user && $user['senhausuario'] == md5($senha)) {
-    $_SESSION['userID'] = $user['idusuario'];
+    if($user['emailusuario'] == "admin@gmail.com"){
+      $_SESSION['is_admin'] = true;
+      return true;
+    }
+    $_SESSION['is_admin'] = false;
     return true;
   } else {
     return false;
