@@ -12,7 +12,7 @@ $(function () {
       var link_sacola = $(".cart_container");
       console.log(link_sacola);
       link_sacola.append(
-        `<a href="./sacola.html" name="_sacola">
+        `<a href="./sacola.php" name="_sacola">
       <div class="amount_items">${items_count}</div>
       <img class="cart_icon" src="./assets/cart.svg"></img></a>`
       );

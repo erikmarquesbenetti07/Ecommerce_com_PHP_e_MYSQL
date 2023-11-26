@@ -38,7 +38,7 @@
 		</div>
 		  <script>
 			document.getElementById('btnCriarProduto').addEventListener('click', function() {
-			  window.location.href = './produtos.html';
+			  window.location.href = './produtos.php';
 			});
 		  </script>
 </div>

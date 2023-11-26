@@ -24,7 +24,7 @@ window.addEventListener("load", function () {
 
       setTimeout(() => {
         window.location.href =
-          "http://localhost/Projeto-Banco-de-Dados/html/sacola.html";
+          "http://localhost/Projeto-Banco-de-Dados/html/sacola.php";
       }, 1500);
     });
 
@@ -54,7 +54,7 @@ window.addEventListener("load", function () {
       localStorage.setItem("items", JSON.stringify(itemsId));
       setTimeout(() => {
         window.location.href =
-          "http://localhost/Projeto-Banco-de-Dados/html/sacola.html";
+          "http://localhost/Projeto-Banco-de-Dados/html/sacola.php";
       }, 1500);
     });
 
@@ -255,4 +255,17 @@ function aguardarRedirecionamento() {
     window.location.href = "../html/acompanhaACompra.html";
     localStorage.removeItem("items");
   }, 100);
+}
+
+function loginAlert() {
+  $.toast({
+    heading: `Você não esta logado`,
+    text: "Efetue o login antes de continuar",
+    stack: false,
+    position: 'top-center',
+    icon: "warning",
+    bgColor: "#f76420",
+    textColor: "white",
+    hideAfter: 3000,
+  });
 }
