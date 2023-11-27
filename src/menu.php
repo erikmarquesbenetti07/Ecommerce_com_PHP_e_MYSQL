@@ -2,11 +2,11 @@
   session_start();
 
   if (!isset($_SESSION['logado'])){
-   header("Location: http://localhost/Projeto-Banco-de-Dados/html/login_page.php");
+   header("Location: ../html/menu.html");
   }
 
   if ( $_SESSION['logado'] == false){
-     header("Location: http://localhost/Projeto-Banco-de-Dados/html/login_page.php");
+     header("Location: ../html/login_page.php");
   }
 
   $menu = "Não foi possivel achar o menu.";
